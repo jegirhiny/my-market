@@ -1,0 +1,30 @@
+.item-page {
+    display: flex;
+    justify-content: center;
+    margin-top: 32.5px;
+}
+
+.item-page-img {
+    transition: all ease-in-out 300ms;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px;
+    height: 400px;
+    width: 400px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.item-details {
+    height: 400px;
+    width: 400px;
+}
+
+.item-details > :not(:first-child) {
+    margin: 32.5px 0;
+}
+
+.item-details > h2 {
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    height: 50px;
+}

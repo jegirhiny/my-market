@@ -1,0 +1,44 @@
+.img-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.landing-img {
+  width: 100vw;
+}
+
+.img-text {
+  font-size: 90px;
+  font-weight: 800;
+  text-transform: uppercase;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  color: #1f513f;
+  width: 900px;
+  text-align: center;
+}
+
+.img-button {
+  transition: all ease-in-out 600ms;
+  color: #000000;
+  font-weight: 600;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  text-transform: uppercase;
+  background-color: #ffffff;
+  cursor: pointer;
+  padding: 15px 50px;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+}
+
+.img-button:hover {
+  translate: 0 -5px;
+  box-shadow: 0 0.5rem #1f513f;
+}

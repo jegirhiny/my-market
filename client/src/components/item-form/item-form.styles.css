@@ -1,0 +1,7 @@
+.item-foreground {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: -webkit-fill-available;
+    justify-content: center;
+}

@@ -1,0 +1,28 @@
+.careousel-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.careousel-img {
+    height: 150px;
+    width: 150px;
+    object-fit: cover;
+}
+
+.careousel-actions {
+    display: flex;
+    width: -webkit-fill-available;
+    align-items: center;
+}
+
+.careousel-trash {
+    cursor: pointer;
+    transition: all ease-in-out 300ms;
+    border-radius: 5px;
+    padding: 7.5px;
+}
+
+.careousel-trash:hover {
+    background-color: #ffcccc;
+}
