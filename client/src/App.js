@@ -15,13 +15,13 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route exact path="/login" element={<Login />} />
-        <Route exact path="/signup" element={<Signup />} />
-        <Route exact path="/account" element={<NavWrapper child={<Account />} />} />
-        <Route exact path="/cart" element={<NavWrapper child={<CartView />} />} />
-        <Route exact path="/item/:id" element={<ItemPage />} />
-        <Route exact path="/selling" element={<NavWrapper child={<ItemGallery />} />} />
-        <Route exact path="/selling/new" element={<NavWrapper child={<ItemForm />} />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/account" element={<NavWrapper child={<Account />} />} />
+        <Route path="/cart" element={<NavWrapper child={<CartView />} />} />
+        <Route path="/item/:id" element={<ItemPage />} />
+        <Route path="/selling" element={<NavWrapper child={<ItemGallery />} />} />
+        <Route path="/selling/new" element={<NavWrapper child={<ItemForm />} />} />
         <Route path="*" element={<Landing to="/" />} />
       </Routes>
     </BrowserRouter>
