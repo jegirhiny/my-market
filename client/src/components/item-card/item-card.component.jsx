@@ -40,7 +40,7 @@ const ItemCard = ({ item, setKey }) => {
   return (
     <div className="item-card" onClick={() => navigate(`/item/${item.id}`)}>
       <img
-        src={`http://localhost:5000/${item.images[0].path}`}
+        src={`${process.env.REACT_APP_URI}/${item.images[0].path}`}
         alt={item.images[0].name}
         className="item-img"
       />
