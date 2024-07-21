@@ -2,7 +2,7 @@ import axios from "axios";
 
 async function login(data) {
   try {
-    const res = await axios.post("/user/login", data, {
+    const res = await axios.post(`${process.env.REACT_API_URI}/user/login`, data, {
       headers: { "Content-Type": "application/json" },
     });
 
@@ -15,7 +15,7 @@ async function login(data) {
 
 async function signup(data) {
   try {
-    const res = await axios.post("/user/signup", data, {
+    const res = await axios.post(`${process.env.REACT_API_URI}/user/signup`, data, {
       headers: { "Content-Type": "application/json" },
     });
 

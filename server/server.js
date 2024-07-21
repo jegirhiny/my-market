@@ -4,14 +4,9 @@ const app = express();
 
 app.use(express.json());
 
-app.use(express.static(path.join("../client/build")));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use("/user", require("./routes/userRoute"));
 app.use("/item", require("./routes/itemRoute"));
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/build", "index.html"));
-});
 
 app.listen(5000, () => console.log("Server started on port 5000."));

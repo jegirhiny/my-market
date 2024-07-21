@@ -2,7 +2,7 @@ import axios from "axios";
 
 async function getItem(id) {
   try {
-    const res = await axios.get(`/item/${id}`, {
+    const res = await axios.get(`${process.env.REACT_API_URI}/item/${id}`, {
       headers: { "Content-Type": "application/json" },
     });
 
@@ -15,7 +15,7 @@ async function getItem(id) {
 
 async function getRangeOfItems(searchTerm, skip, take) {
   try {
-    const res = await axios.get("/item/range", {
+    const res = await axios.get(`${process.env.REACT_API_URI}/item/range`, {
       params: { searchTerm, skip, take },
       headers: { "Content-Type": "application/json" },
     });
@@ -29,7 +29,7 @@ async function getRangeOfItems(searchTerm, skip, take) {
 
 async function getItems(token) {
   try {
-    const res = await axios.get("/item/all", {
+    const res = await axios.get(`${process.env.REACT_API_URI}/item/all`, {
       params: { token },
       headers: { "Content-Type": "application/json" },
     });
@@ -43,7 +43,7 @@ async function getItems(token) {
 
 async function createItem(data) {
   try {
-    const res = await axios.post("/item/create", data, {
+    const res = await axios.post(`${process.env.REACT_API_URI}/item/create`, data, {
       headers: { "Content-Type": "multipart/form-data" },
     });
 
@@ -56,7 +56,7 @@ async function createItem(data) {
 
 async function deleteItem(id) {
   try {
-    const res = await axios.delete(`/item/delete/${id}`, {
+    const res = await axios.delete(`${process.env.REACT_API_URI}/item/delete/${id}`, {
       headers: { "Content-Type": "application/json" },
     });
 
@@ -69,7 +69,7 @@ async function deleteItem(id) {
 
 async function addCartItem(data) {
   try {
-    const res = await axios.post("/item/addCartItem", data, {
+    const res = await axios.post(`${process.env.REACT_API_URI}/item/addCartItem`, data, {
       headers: { "Content-Type": "application/json" },
     });
 
@@ -82,7 +82,7 @@ async function addCartItem(data) {
 
 async function getCartItems(token) {
   try {
-    const res = await axios.get("/item/cart", {
+    const res = await axios.get(`${process.env.REACT_API_URI}/item/cart`, {
       params: { token },
       headers: { "Content-Type": "application/json" },
     });
@@ -96,7 +96,7 @@ async function getCartItems(token) {
 
 async function getCartItemCount(token) {
   try {
-    const res = await axios.get("/item/cartCount", {
+    const res = await axios.get(`${process.env.REACT_API_URI}/item/cartCount`, {
       params: { token },
       headers: { "Content-Type": "application/json" },
     });
@@ -110,7 +110,7 @@ async function getCartItemCount(token) {
 
 async function incrementCartItemCount(data) {
   try {
-    const res = await axios.patch("/item/incrementCartItemCount", data, {
+    const res = await axios.patch(`${process.env.REACT_API_URI}/item/incrementCartItemCount`, data, {
       headers: { "Content-Type": "application/json" },
     });
 
@@ -123,7 +123,7 @@ async function incrementCartItemCount(data) {
 
 async function removeCartItem(id) {
   try {
-    const res = await axios.delete(`/item/removeCartItem/${id}`, {
+    const res = await axios.delete(`${process.env.REACT_API_URI}/item/removeCartItem/${id}`, {
       headers: { "Content-Type": "application/json" },
     });
 
