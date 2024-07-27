@@ -28,7 +28,7 @@ model Item {
   userId Int
   user   User @relation(fields: [userId], references: [id])
 
-  cartItems CartItem[] @ignore
+  cartItems CartItem[]
 }
 
 model Image {
@@ -37,7 +37,7 @@ model Image {
   path String
 
   itemId Int
-  item   Item @relation(fields: [itemId], references: [id])
+  item   Item @relation(fields: [itemId], references: [id], onDelete: Cascade)
 }
 
 model CartItem {
@@ -49,5 +49,5 @@ model CartItem {
   user   User @relation(fields: [userId], references: [id])
 
   itemId Int
-  item   Item @relation(fields: [itemId], references: [id])
+  item   Item @relation(fields: [itemId], references: [id], onDelete: Cascade)
 }
