@@ -172,7 +172,7 @@ const CartView = ({ triggerRender, setTriggerRender }) => {
             );
           })
         ) : (
-          <div className="cart-item">
+          <div className="cart-item" style={{height: "fit-content"}}>
             <ul style={{ listStyle: "none" }}>
               <li>
                 <li>Your cart is empty.</li>
