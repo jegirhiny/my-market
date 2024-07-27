@@ -14,10 +14,9 @@ import {
   LuLogOut,
 } from "react-icons/lu";
 
-const Navigation = ({ callbackFunctions }) => {
+const Navigation = ({ callbackFunctions, triggerRender }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [cartCount, setCartCount] = useState(0);
-  const triggerRender = callbackFunctions?.triggerRender ?? null;
   const loggedIn = isLoggedIn();
   const navigate = useNavigate();
   const location = useLocation();

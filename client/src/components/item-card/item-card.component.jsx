@@ -46,7 +46,9 @@ const ItemCard = ({ item, setKey }) => {
       />
       <h4 className="item-header">{item.name}</h4>
       {location.pathname === "/" && (
-        <h4 className="item-header" style={{margin: "5px 0 20px 0"}}>${item.price}</h4>
+        <h4 className="item-header" style={{ margin: "5px 0 20px 0" }}>
+          {item.price === "0" ? `FREE` : `$${item.price}`}
+        </h4>
       )}
       {showButtons()}
     </div>

@@ -19,7 +19,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/account" element={<NavWrapper child={<Account />} />} />
         <Route path="/cart" element={<NavWrapper child={<CartView />} />} />
-        <Route path="/item/:id" element={<ItemPage />} />
+        <Route path="/item/:id" element={<NavWrapper child={<ItemPage />} />} />
         <Route path="/selling" element={<NavWrapper child={<ItemGallery />} />} />
         <Route path="/selling/new" element={<NavWrapper child={<ItemForm />} />} />
         <Route path="*" element={<Landing to="/" />} />

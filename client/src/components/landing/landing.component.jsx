@@ -8,12 +8,14 @@ import ItemCard from "../item-card/item-card.component";
 const Landing = () => {
   const [items, setItems] = useState([]);
   const [searchItems, setSearchItems] = useState([]);
+  const [skip, setSkip] = useState(0);
+  const [take, setTake] = useState(15);
   const loading = useRef(true);
 
   useEffect(() => {
     const fetchData = async () => {
       loading.current = true;
-      const res = await getRangeOfItems("", 0, 15);
+      const res = await getRangeOfItems("", skip, take);
       setItems(res.data.items);
       loading.current = false;
     };

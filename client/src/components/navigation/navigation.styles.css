@@ -59,9 +59,10 @@
     position: absolute;
     right: -7.5px;
     bottom: 17.5px;
-    background-color: #ffcccc;
+    background-color: #ff5a5a;
     border-radius: 100%;
     padding: 2px 6px;
     outline: 3px solid #ffffff;
     font-weight: 600;
+    color: #ffffff;
 }

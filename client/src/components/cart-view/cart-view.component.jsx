@@ -8,17 +8,11 @@ import {
   removeCartItem,
 } from "../../utility/item-api";
 import { getToken, isLoggedIn } from "../../utility/user-api";
-import {
-  LuLoader,
-  LuChevronLeft,
-  LuChevronRight,
-  LuTrash2,
-} from "react-icons/lu";
+import { LuLoader, LuChevronLeft, LuChevronRight } from "react-icons/lu";
 import { jwtDecode } from "jwt-decode";
 
-const CartView = () => {
+const CartView = ({ triggerRender, setTriggerRender }) => {
   const [items, setItems] = useState([]);
-  const [triggerRender, setTriggerRender] = useState(Math.random());
   const loading = useRef(true);
   const loggedIn = isLoggedIn();
   const navigate = useNavigate();
@@ -41,7 +35,13 @@ const CartView = () => {
           })
         );
 
-        setItems(fetchedItems);
+        setItems(
+          fetchedItems.sort(
+            (a, b) =>
+              new Date(a.cartItem.createdAt) - new Date(b.cartItem.createdAt)
+          )
+        );
+
         loading.current = false;
       };
 
@@ -49,19 +49,28 @@ const CartView = () => {
     }
   }, [triggerRender, loggedIn, navigate]);
 
-  const handleIncrement = async (cartItemId, value) => {
-    await incrementCartItemCount({
-      cartItemId: cartItemId,
-      value: value,
-    });
+  const handleIncrement = async (cartItem, value) => {
+    if (cartItem.quantity + value === 0) {
+      handleRemove(cartItem.id);
+    } else {
+      await incrementCartItemCount({
+        cartItemId: cartItem.id,
+        value: value,
+      });
+    }
 
-    setTriggerRender(Math.random());
+    setTriggerRender((prev) => prev + 1);
   };
 
   const handleRemove = async (cartItemId) => {
-    await removeCartItem(cartItemId);
+    const item = document.getElementById(cartItemId);
+    item.innerHTML = "";
+    item.classList.add("shrink");
 
-    setTriggerRender(Math.random());
+    setTimeout(async () => {
+      await removeCartItem(cartItemId);
+      setTriggerRender((prev) => prev + 1);
+    }, 300);
   };
 
   if (loading.current) {
@@ -73,30 +82,112 @@ const CartView = () => {
     );
   }
 
+  let totalCost = 0;
+  let numItems = 0;
+
   return (
     <div className="cart-view">
-      {items.map(({ item, cartItem }) => (
-        <div key={item.id} className="cart-item">
-          <h4>{item.name}</h4>
-          <div className="item-count">
-            <LuChevronLeft
-              size={"1.3rem"}
-              onClick={() => handleIncrement(cartItem.id, -1)}
-            />
-            <h4>{cartItem.quantity}</h4>
-            <LuChevronRight
-              size={"1.3rem"}
-              onClick={() => handleIncrement(cartItem.id, 1)}
-            />
+      <div>
+        {items.length !== 0 ? (
+          items.map(({ item, cartItem }) => {
+            totalCost += item.price * cartItem.quantity;
+            numItems += cartItem.quantity;
+
+            return (
+              <div
+                key={item.id}
+                id={cartItem.id}
+                className={`cart-item${
+                  item.stock === 0 ? " out-of-stock" : ""
+                }`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigate(`/item/${item.id}`);
+                }}
+              >
+                <img
+                  src={`${process.env.REACT_APP_URI}/${item.images[0].path}`}
+                  alt={item.images[0].name}
+                  className="item-img"
+                  style={{ cursor: "pointer", marginTop: "0" }}
+                />
+                <ul className="cart-list">
+                  <li>
+                    <li>
+                      <li
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigate(`/item/${item.id}`);
+                        }}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <li>{item.name}</li>
+                      </li>
+                      <li className="stock">
+                        <span className={item.stock === 0 && "font-red"}>
+                          {item.stock > 0 ? "In Stock" : "Out of Stock"}
+                        </span>
+                      </li>
+                    </li>
+                    <li>{item.price === "0" ? `FREE` : `$${item.price}`}</li>
+                  </li>
+                  <li style={item.stock === 0 ? { textAlign: "end" } : {}}>
+                    {item.stock !== 0 && (
+                      <li style={{ display: "flex" }}>
+                        <LuChevronLeft
+                          size={"1.3rem"}
+                          style={{ cursor: "pointer" }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleIncrement(cartItem, -1);
+                          }}
+                        />
+                        {cartItem.quantity}
+                        <LuChevronRight
+                          size={"1.3rem"}
+                          style={{ cursor: "pointer" }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleIncrement(cartItem, 1);
+                          }}
+                        />
+                      </li>
+                    )}
+
+                    <li>
+                      <li
+                        className="font-red trash"
+                        style={{ cursor: "pointer" }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleRemove(cartItem.id);
+                        }}
+                      >
+                        Remove
+                      </li>
+                    </li>
+                  </li>
+                </ul>
+              </div>
+            );
+          })
+        ) : (
+          <div className="cart-item">
+            <ul style={{ listStyle: "none" }}>
+              <li>
+                <li>Your cart is empty.</li>
+              </li>
+            </ul>
           </div>
-          <h4>${item.price}</h4>
-          <LuTrash2
-            size={"1.3rem"}
-            className="trash"
-            onClick={() => handleRemove(cartItem.id)}
-          />
+        )}
+      </div>
+      <div className="summary">
+        <div>
+          <span>{`Subtotal (${numItems} items): `}</span>
+          <span style={{ fontWeight: "bold" }}>{`$${totalCost}`}</span>
         </div>
-      ))}
+        <span className="checkout">Proceed to Checkout</span>
+      </div>
     </div>
   );
 };

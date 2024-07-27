@@ -9,10 +9,9 @@ import ErrorCard from "../error-card/error-card.component";
 import React from "react";
 import Navigation from "../navigation/navigation.component";
 
-const ItemPage = () => {
+const ItemPage = ({ triggerRender, setTriggerRender }) => {
   const { id } = useParams();
   const [item, setItem] = useState(null);
-  const [triggerRender, setTriggerRender] = useState(Math.random());
   const loggedIn = isLoggedIn();
   const navigate = useNavigate();
   let loading = useRef(true);
@@ -42,7 +41,7 @@ const ItemPage = () => {
 
   const handleAddToCart = async (itemId, userId) => {
     await addCartItem({ itemId, userId });
-    setTriggerRender(Math.random());
+    setTriggerRender((prev) => prev + 1);
   };
 
   if (item === undefined) {
@@ -75,31 +74,27 @@ const ItemPage = () => {
           >
             Add to Cart
           </button>
-          <button className="form-submit">Buy Now</button>
         </div>
       );
     }
   };
 
   return (
-    <div className="full">
-      <Navigation callbackFunctions={{ triggerRender }} />
-      <div className="item-page">
-        <img
-          src={`${process.env.REACT_APP_URI}/${item.images[0].path}`}
-          alt={item.images[0].name}
-          className="item-page-img"
-        />
-        <div className="item-details" style={{ marginLeft: "100px" }}>
-          <h2>{item.name}</h2>
-          <h2>{item.description}</h2>
-          <h2>${item.price}</h2>
-          <h2 style={{ color: "green" }}>
-            {item.stock > 0 ? "In Stock" : "Out of Stock"}
-          </h2>
-        </div>
-        {showButtons()}
+    <div className="item-page">
+      <img
+        src={`${process.env.REACT_APP_URI}/${item.images[0].path}`}
+        alt={item.images[0].name}
+        className="item-page-img"
+      />
+      <div className="item-details" style={{ marginLeft: "100px" }}>
+        <h2>{item.name}</h2>
+        <h2>{item.description}</h2>
+        <h2>${item.price}</h2>
+        <h2 style={{ color: "green" }}>
+          {item.stock > 0 ? "In Stock" : "Out of Stock"}
+        </h2>
       </div>
+      {showButtons()}
     </div>
   );
 };
