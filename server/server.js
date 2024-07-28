@@ -3,6 +3,11 @@ const path = require("path");
 const cors = require("cors");
 const app = express();
 
+const fs = require('fs');
+const files = fs.readdirSync('/uploads');
+
+console.log(files);
+
 app.use(express.json());
 
 app.use(cors());
