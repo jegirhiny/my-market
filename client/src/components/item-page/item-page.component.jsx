@@ -81,7 +81,7 @@ const ItemPage = ({ triggerRender, setTriggerRender }) => {
   return (
     <div className="item-page">
       <img
-        src={`${process.env.REACT_APP_URI}${item.images[0].path}`}
+        src={`${process.env.REACT_APP_URI}/opt/render/project/src${item.images[0].path}`}
         alt={item.images[0].name}
         className="item-page-img"
       />
