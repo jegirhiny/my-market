@@ -7,7 +7,6 @@ import { jwtDecode } from "jwt-decode";
 import { LuLoader } from "react-icons/lu";
 import ErrorCard from "../error-card/error-card.component";
 import React from "react";
-import Navigation from "../navigation/navigation.component";
 
 const ItemPage = ({ triggerRender, setTriggerRender }) => {
   const { id } = useParams();
