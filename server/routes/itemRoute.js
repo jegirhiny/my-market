@@ -1,7 +1,6 @@
 const express = require("express");
 const itemRoute = express.Router();
 const multer = require("multer");
-const upload = multer({ dest: "../uploads/" });
 const {
   createItem,
   getItem,
@@ -12,8 +11,21 @@ const {
   addCartItem,
   getCartItemCount,
   incrementCartItemCount,
-  removeCartItem
+  removeCartItem,
 } = require("../controller/itemController");
+
+const multer = require("multer");
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "/mnt/data/images");
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + "-" + file.originalname);
+  },
+});
+
+const upload = multer({ storage: storage });
 
 itemRoute.get("/range", getRangeOfItems);
 itemRoute.get("/all", getItems);
