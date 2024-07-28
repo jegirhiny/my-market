@@ -1,7 +1,7 @@
 const express = require("express");
 const itemRoute = express.Router();
 const multer = require("multer");
-const upload = multer({ dest: "uploads/" });
+const upload = multer({ dest: "../uploads/" });
 const {
   createItem,
   getItem,
