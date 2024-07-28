@@ -58,9 +58,5 @@ const signup = async (req, res) => {
   }
 };
 
-const getNumCartItems = async (req, res) => {
-  
-}
-
 exports.login = login;
 exports.signup = signup;
