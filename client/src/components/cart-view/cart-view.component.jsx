@@ -106,7 +106,7 @@ const CartView = ({ triggerRender, setTriggerRender }) => {
                 }}
               >
                 <img
-                  src={`${process.env.REACT_APP_URI}/${item.images[0].path}`}
+                  src={`${process.env.REACT_APP_URI}${item.images[0].path}`}
                   alt={item.images[0].name}
                   className="item-img"
                   style={{ cursor: "pointer", marginTop: "0" }}

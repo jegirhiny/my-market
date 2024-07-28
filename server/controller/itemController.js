@@ -1,6 +1,14 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
+
+
+/**
+ * 
+ * @param {*} req - The request object from the client.
+ * @param {*} res - The response object to send back to the client.
+ * @returns 
+ */
 const getItem = async (req, res) => {
   const item = await prisma.item.findUnique({
     where: { id: parseInt(req.params.id) },
@@ -18,6 +26,14 @@ const getItem = async (req, res) => {
   return res.status(200).json({ message: "Items returned.", item: item });
 };
 
+
+
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 async function getRangeOfItems(req, res) {
   const items = await prisma.item.findMany({
     where: {
@@ -33,6 +49,14 @@ async function getRangeOfItems(req, res) {
   return res.status(200).json({ message: "Items returned.", items: items });
 }
 
+
+
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 const getItems = async (req, res) => {
   const userId = req.query.token.id;
 
@@ -52,6 +76,14 @@ const getItems = async (req, res) => {
     .json({ message: "Items returned.", selling: user.selling });
 };
 
+
+
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 const getCartItems = async (req, res) => {
   const userId = req.query.token.id;
 
@@ -67,6 +99,14 @@ const getCartItems = async (req, res) => {
     .json({ message: "Items returned.", buying: user.buying });
 };
 
+
+
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 const createItem = async (req, res) => {
   const { name, price, stock, description, userId } = req.body;
 
@@ -109,6 +149,14 @@ const createItem = async (req, res) => {
   return res.status(201).json({ message: "Listing created." });
 };
 
+
+
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 const deleteItem = async (req, res) => {
   await prisma.image.deleteMany({ where: { itemId: parseInt(req.params.id) } });
   await prisma.item.delete({ where: { id: parseInt(req.params.id) } });
@@ -116,6 +164,14 @@ const deleteItem = async (req, res) => {
   return res.status(204).json({ message: "Listing deleted." });
 };
 
+
+
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 const addCartItem = async (req, res) => {
   const { itemId, userId } = req.body;
 
@@ -150,6 +206,14 @@ const addCartItem = async (req, res) => {
   }
 };
 
+
+
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 const getCartItemCount = async (req, res) => {
   const userId = req.query.token.id;
 
@@ -165,6 +229,14 @@ const getCartItemCount = async (req, res) => {
     .json({ message: "Count returned.", count: user.buying.length });
 };
 
+
+
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 const incrementCartItemCount = async (req, res) => {
   const { cartItemId, value } = req.body;
 
@@ -182,6 +254,14 @@ const incrementCartItemCount = async (req, res) => {
     .json({ message: "Count updated.", count: cartItem.quantity });
 };
 
+
+
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 const removeCartItem = async (req, res) => {
   await prisma.cartItem.delete({
     where: { id: parseInt(req.params.id) },
